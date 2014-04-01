@@ -172,45 +172,6 @@ void first(){
 }
 
 */
-
-void calibrateByMiddleSensor() {
-	unsigned char SPEED = 140;
-	unsigned char SMALL_ADJ = 3;
-	unsigned char MEDIUM_ADJ = 8;
-	unsigned char BIG_ADJ = 15;
-    switch(nextCondition) {
-        case 1:
-        check1 = sensor.middle_sensor;
-        break;
-        case 2:
-        check2 = sensor.middle_sensor;
-        break;
-        case 3:
-        check3 = sensor.middle_sensor;
-        break;
-    }
-    unsigned char S = sensor.middle_sensor;
-    int leading = __builtin_clz(S);
-    int trailing = __builtin_ctz(S);
-    int diff = leading - trailing;
-    if(diff >= 5) {
-        leftSpeed += BIG_ADJ;
-        rightSpeed -= BIG_ADJ;
-    } else if(diff >= 2) {
-        leftSpeed += MEDIUM_ADJ;
-        rightSpeed -= MEDIUM_ADJ;
-    } else if(diff >= -1) {
-        leftSpeed = SPEED;
-        rightSpeed = SPEED;
-    } else if(diff <= -5) {
-        leftSpeed -= BIG_ADJ;
-        rightSpeed += BIG_ADJ;
-    } else if(diff <= -2) {
-        leftSpeed -= MEDIUM_ADJ;
-        rightSpeed += MEDIUM_ADJ;
-    }
-}
-
 void logchr(unsigned char i) {
     switch(nextCondition) {
         case 1: check1 = i; break;
