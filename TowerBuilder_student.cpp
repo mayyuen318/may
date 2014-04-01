@@ -134,10 +134,10 @@ void first(){
 		lineTracking();
         switch(sensor.middle_sensor) {
             case 0b00001111:
-            case 0b00011110:
-            case 0b01111111:
-            case 0b00111111:
             case 0b00011111:
+            case 0b00111111:
+            case 0b01111111:
+            case 0b00011110:
             case 0b00111110:
                 condition = 1;
         }
