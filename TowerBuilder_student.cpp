@@ -129,58 +129,30 @@ void fake_turnRight() {
 }
 
 void first(){
-/*	switch(condition) {
-		case 0:
-		TurnTil();
-		break;
-
-		case 1:
-		case 2:
-		RightTurn();
-		break;
-
-		case 3:
-		case 4:
-		LeftTurn();
-		break;
-
-		case 5:
-		case 6:
-		RightTurn();
-		break;
-
-		case 7:
-		case 8:
-		LeftTurn();
-		break;
-
-		default:
-		wheels.forward(0,0);
-		break;
-	}*/
-
-	if (condition==0)
-	{
+    switch(condition) {
+        case 0:
 		lineTracking();
-		if(sensor.middle_sensor == 0x0F || sensor.middle_sensor ==0b00011110 || sensor.middle_sensor == 0x7F || sensor.middle_sensor ==0x3F || sensor.middle_sensor ==0x1F || sensor.middle_sensor ==0b00111110  )
-			condition=1;
+        switch(sensor.middle_sensor) {
+            case 0b00001111:
+            case 0b00011110:
+            case 0b01111111:
+            case 0b00111111:
+            case 0b00011111:
+            case 0b00111110:
+                condition = 1;
+        }
+        break;
 
-	}
-	else if(condition == 1)
-	{
+        case 1:
 		wheels.stop();
 		RightTurn();
-	}
-	else if(condition == 2)
-	{
-		CheckStop();
-	}
-	else if(condition == 3)
-		Forward();
-	else if(condition == 4)
-		BackToLine();
-	else if(condition == 5)
-	{
+        break;
+
+        case 2: CheckStop(); break;
+
+        case 3: Forward(); break;
+        case 4: BackToLine(); break;
+        case 5:
 		lineTracking();
 		if(sensor.front_sensor == 0b00111100 || sensor.front_sensor == 0b00011100 || sensor.front_sensor == 0b00111000)
 		{
@@ -188,7 +160,8 @@ void first(){
 			wheels.forward(0,0);
 			condition = 6;
 		}
-	}
+        break;
+    }
 }
 /*void TurnTil() {
 	lineTracking();
@@ -270,12 +243,10 @@ void calibrateBySideSensor() {
 
 void Forward(){
 	wheels.forward(leftSpeed, rightSpeed);
-    //if(crossing == 0 && sensor.middle_sensor != 0) {
     if(crossing == 0 && (sensor.front_sensor & 0b11000011) != 0) {
 		nextCondition++;
 		crossing = 1;
         calibrateBySideSensor();
-    //} else if(crossing == 1 && sensor.middle_sensor == 0) {
     } else if(crossing == 1 && (sensor.front_sensor & 0b11000011) == 0) {
 		crossing = 0;
 	}
@@ -295,7 +266,6 @@ void CheckStop() {
 		wheels.backward(120,120);
 	}
 	if(sensor.middle_sensor != 0xFF){
-		//wheels.turnRight(160,175);
 		wheels.turnLeft(175,165);
 	}
 
@@ -303,25 +273,6 @@ void CheckStop() {
 }
 
 
-/*	switch((sensor.front_sensor & 0b00111100)) {
-		case 0b00000100:
-		case 0b00001100:
-		case 0b00011100:
-		case 0b00111100:
-		case 0b00111000:
-		case 0b00110000:
-		case 0b00100000:
-		condition = 0;
-		nextCondition++;
-		break;
-		default:
-		break;
-}
-}
-void LeftTurn() {
-	wheels.turnLeft(150,150);
-	CheckStop();
-}*/
 
 void RightTurn(){
 	wheels.turnRight(180,180);
