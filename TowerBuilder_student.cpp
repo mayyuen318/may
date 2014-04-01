@@ -152,7 +152,8 @@ void first(){
         case 2: CheckStop(); break;
         case 3: Forward(); break;
         case 4: BackToLine(); break;
-        case 5:
+        case 5: LeftTurn(); break;
+        case 6:
 		lineTracking();
 		if(sensor.front_sensor == 0b00111100 || sensor.front_sensor == 0b00011100 || sensor.front_sensor == 0b00111000)
 		{
@@ -234,7 +235,11 @@ void CheckStop() {
 
 void LeftTurn() {
     wheels.turnLeft(180,180);
-    CheckStop();
+    if(front_sensor & 0x0C != 0){
+    	wheels.turnLeft(0,0);
+    	condition = 6;
+    }
+
 }
 void RightTurn(){
 	wheels.turnRight(180,180);
