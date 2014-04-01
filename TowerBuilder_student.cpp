@@ -207,7 +207,9 @@ void Forward(){
     if(crossing == 0 && (sensor.front_sensor & 0b11000011) != 0) {
 		nextCondition++;
 		crossing = 1;
-        calibrateBySideSensor();
+
+        // Avoid premature calibrate by the base line
+        if(nextCondition > 1) calibrateBySideSensor();
     } else if(crossing == 1 && (sensor.front_sensor & 0b11000011) == 0) {
 		crossing = 0;
 	}
