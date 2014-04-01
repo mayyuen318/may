@@ -210,7 +210,7 @@ void Forward(){
     } else if(crossing == 1 && (sensor.front_sensor & 0b11000011) == 0) {
 		crossing = 0;
 	}
-	if (nextCondition >= 5 && sensor.middle_sensor !=0)
+	if (nextCondition >= 5)
 	{
 		wheels.forward(0,0);
 		condition = 4;
@@ -252,7 +252,7 @@ void BackToLine(){
     } else if((sensor.middle_sensor != 0xFF) && (sensor.middle_sensor == 0xC0 || sensor.middle_sensor == 0xE0 || sensor.middle_sensor == 0xF0 || sensor.middle_sensor == 0b01110000)) {
         wheels.backward(0,0);
         wheels.turnLeft(175,160);
-    } else if(sesnor.middle_sensor == 0xff) {
+    } else if(sensor.middle_sensor == 0xff) {
 	    condition = 5;
     }
 }
