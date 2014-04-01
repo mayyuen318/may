@@ -150,14 +150,12 @@ void first(){
         break;
 
         case 2: CheckStop(); break;
-
         case 3: Forward(); break;
         case 4: BackToLine(); break;
         case 5:
 		lineTracking();
 		if(sensor.front_sensor == 0b00111100 || sensor.front_sensor == 0b00011100 || sensor.front_sensor == 0b00111000)
 		{
-
 			wheels.forward(0,0);
 			condition = 6;
 		}
@@ -234,7 +232,7 @@ void CheckStop() {
 	condition = 3;
 }
 
-void LeftTurn {
+void LeftTurn() {
     wheels.turnLeft(180,180);
     CheckStop();
 }
@@ -252,10 +250,11 @@ void BackToLine(){
         wheels.backward(0,0);
         wheels.turnRight(160,175);
     } else if((sensor.middle_sensor != 0xFF) && (sensor.middle_sensor == 0xC0 || sensor.middle_sensor == 0xE0 || sensor.middle_sensor == 0xF0 || sensor.middle_sensor == 0b01110000)) {
-        wheels.backward(0,0);^M
+        wheels.backward(0,0);
         wheels.turnLeft(175,160);
+    } else if(sesnor.middle_sensor == 0xff) {
+	    condition = 5;
     }
-	condition = 5;
 }
 void menu() {
 
